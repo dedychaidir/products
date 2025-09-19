@@ -2,7 +2,6 @@
 
 import ProductCarousel from "@/components/ProductCarousel";
 import { useEffect, useState } from "react";
-// import productsData from "@/../public/products.json";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<any>();
@@ -11,15 +10,13 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
     fetch(`https://dummyjson.com/products/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log;
+        setProduct(data);
       });
   };
 
   useEffect(() => {
     loadProductData();
   }, []);
-
-  //   useEffect(() => {}, [productsData]);
 
   //   const product = (productsData as any).products.find(
   //     (p: any) => p.id === Number(params.id)
