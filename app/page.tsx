@@ -73,7 +73,7 @@ export default function HomePage() {
           md:grid-cols-3
           lg:grid-cols-4"
       >
-        {filtered.map((product) => (
+        {filtered.map((product: any) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
