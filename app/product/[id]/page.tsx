@@ -10,8 +10,6 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
     fetch(`https://dummyjson.com/products/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(';data', data);
-        
         setProduct(data);
       });
   };
