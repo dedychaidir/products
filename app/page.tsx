@@ -4,7 +4,6 @@ import ProductCard from "@/components/ProductCard";
 import ProductFilter from "@/components/ProductFilter";
 
 export default function HomePage() {
-  const [products, setProducts] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
 
@@ -15,7 +14,6 @@ export default function HomePage() {
     fetch("https://dummyjson.com/products")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products);
         setFiltered(data.products);
       });
   };
@@ -32,7 +30,6 @@ export default function HomePage() {
     fetch(`https://dummyjson.com/products?sortBy=title&order=${sort}`)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products);
         setFiltered(data.products);
       });
   };
@@ -41,7 +38,6 @@ export default function HomePage() {
     fetch(`https://dummyjson.com/products/category/${byCategory}`)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products);
         setFiltered(data.products);
       });
   };
