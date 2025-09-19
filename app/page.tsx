@@ -38,7 +38,7 @@ export default function HomePage() {
   };
 
   const byCategoryData = () => {
-    fetch(`https://dummyjson.com/products?sortBy=title&order=${sort}`)
+    fetch(`https://dummyjson.com/products/category/${byCategory}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.products);
