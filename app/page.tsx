@@ -7,8 +7,8 @@ export default function HomePage() {
   const [products, setProducts] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
 
-  const [sort, setSort] = useState<"asc" | "desc">("asc");
-  ("");
+  const [sort, setSort] = useState<string>("asc");
+  const [byCategory, setByCategory] = useState<string | null>(null);
 
   const loadData = () => {
     fetch("https://dummyjson.com/products")
@@ -19,13 +19,20 @@ export default function HomePage() {
       });
   };
 
+  const sortData = () => {
+    fetch(`https://dummyjson.com/products?sortBy=title&order=${sort}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.products);
+        setFiltered(data.products);
+      });
+  };
+
   function handleFilter(category: string, sort: string) {
-    let list = [...products];
-    if (category) list = list.filter((p) => p.category === category);
-    list.sort((a, b) =>
-      sort === "asc" ? a.price - b.price : b.price - a.price
-    );
-    setFiltered(list);
+    if (category) {
+      setByCategory(category);
+    }
+    setSort(sort);
   }
 
   const categories = Array.from(new Set(products.map((p) => p.category)));
@@ -33,6 +40,10 @@ export default function HomePage() {
   useEffect(() => {
     loadData();
   }, []);
+
+  useEffect(() => {
+    sortData();
+  }, [sort]);
 
   return (
     <div>
