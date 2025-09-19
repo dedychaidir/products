@@ -2,9 +2,12 @@
 
 import ProductCarousel from "@/components/ProductCarousel";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ProductDetail({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<any>();
+
+  const router = useRouter();
 
   const loadProductData = () => {
     fetch(`https://dummyjson.com/products/${params.id}`)
@@ -22,6 +25,9 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
   return (
     <div>
+      <button onClick={() => router.back()} className="mb-4">
+        ← Back
+      </button>
       <ProductCarousel images={product.images} />
       <h1 className="text-3xl font-bold mt-4">{product.title}</h1>
       <p className="text-gray-700">{product.description}</p>
