@@ -2,46 +2,35 @@
 
 import { useState } from "react";
 
-// import { Carousel } from "antd";
-
 export default function ProductCarousel({ images }: { images: string[] }) {
-  // return (
-  //   <Carousel autoplay dots className="rounded overflow-hidden">
-  //     {images.map((img, i) => (
-  //       <div key={i}>
-  //         <img
-  //           src={img}
-  //           alt={`Image ${i + 1}`}
-  //           className="w-full h-80 object-cover"
-  //         />
-  //       </div>
-  //     ))}
-  //   </Carousel>
-  // );
-
   const [index, setIndex] = useState(0);
 
+  function prev() {
+    setIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+  }
+  function next() {
+    setIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+  }
+
   return (
-    <div>
+    <div className="relative w-full overflow-hidden rounded-lg">
       <img
         src={images[index]}
         alt=""
-        className="w-full h-80 object-cover rounded mb-2"
+        className="w-full h-80 object-cover transition-all duration-500"
       />
-      <div className="flex gap-2">
-        {images.map((img, i) => {
-          return (
-            <img
-              key={i}
-              src={img}
-              alt=""
-              onClick={() => setIndex(i)}
-              className={`w-20 h-20 object-cover rounded cursor-pointer border
-              ${i === index ? "border-blue-500" : "border-transparent"}`}
-            />
-          );
-        })}
-      </div>
+      <button
+        onClick={prev}
+        className="absolute top-1/2 left-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+      >
+        ‹
+      </button>
+      <button
+        onClick={next}
+        className="absolute top-1/2 right-2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+      >
+        ›
+      </button>
     </div>
   );
 }
