@@ -67,11 +67,13 @@ export default function HomePage() {
       <h1 className="text-3xl font-bold mb-4">Products</h1>
       <ProductFilter categories={categories} onFilter={handleFilter} />
       <div
-        className="grid gap-6
+        className="
+          grid gap-6
           grid-cols-1
           sm:grid-cols-2
           md:grid-cols-3
-          lg:grid-cols-4"
+          lg:grid-cols-4
+        "
       >
         {filtered.map((product: any) => (
           <ProductCard key={product.id} product={product} />
