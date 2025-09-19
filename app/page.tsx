@@ -6,6 +6,7 @@ import ProductFilter from "@/components/ProductFilter";
 export default function HomePage() {
   const [products, setProducts] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
 
   const [sort, setSort] = useState<string>("asc");
   const [byCategory, setByCategory] = useState<string | null>(null);
@@ -19,7 +20,24 @@ export default function HomePage() {
       });
   };
 
+  const loadCategories = () => {
+    fetch("https://dummyjson.com/products/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data);
+      });
+  };
+
   const sortData = () => {
+    fetch(`https://dummyjson.com/products?sortBy=title&order=${sort}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.products);
+        setFiltered(data.products);
+      });
+  };
+
+  const byCategoryData = () => {
     fetch(`https://dummyjson.com/products?sortBy=title&order=${sort}`)
       .then((res) => res.json())
       .then((data) => {
@@ -35,15 +53,18 @@ export default function HomePage() {
     setSort(sort);
   }
 
-  const categories = Array.from(new Set(products.map((p) => p.category)));
-
   useEffect(() => {
     loadData();
+    loadCategories();
   }, []);
 
   useEffect(() => {
     sortData();
   }, [sort]);
+
+  useEffect(() => {
+    byCategoryData();
+  }, [byCategory]);
 
   return (
     <div>

@@ -23,13 +23,17 @@ export default function ProductFilter({
     <div className="flex gap-4 mb-6">
       <select
         value={category}
-        onChange={(e) => setCategory(e.target.value)}
+        onChange={(e) => {
+          console.log(e.target.value);
+          setCategory(e.target.value)
+          
+        }}
         className="border p-2 rounded"
       >
         <option value="">All Categories</option>
-        {categories.map((c) => (
-          <option key={c} value={c}>
-            {c}
+        {categories.map((c: any) => (
+          <option key={c.slug} value={c.name}>
+            {c.slug}
           </option>
         ))}
       </select>
